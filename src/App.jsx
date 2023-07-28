@@ -15,11 +15,17 @@ function App() {
     email: '',
     password: 'password',
     username: '',
+    role: '',
   });
 
-  const handleChange = (value, name) => {
+  const handleChangeTextField = (value, name) => {
     setField({ ...field, [name]: value });
   };
+
+  const handleChangeSelect = (value, name) => {
+    setField({ ...field, [name]: value });
+  };
+
   return (
     <div className="container">
       <h1>Welcome to Production Site</h1>
@@ -27,25 +33,30 @@ function App() {
         <Form formTitle={'Form with textfield'}>
           <Textfield
             label={'Email'}
-            handleChange={handleChange}
+            handleChange={handleChangeTextField}
             name={'email'}
           />
-          <Textfield
+          {/* <Textfield
             label={'Password'}
             name={'password'}
-            handleChange={handleChange}
+            handleChange={handleChangeTextField}
           />
           <Textfield
             label={'Username'}
             name={'username'}
-            handleChange={handleChange}
-          />
+            handleChange={handleChangeTextField}
+          /> */}
           <Button>Submit form</Button>
         </Form>
         <Form formTitle={'Form with select'}>
-          <Select label={'Choose one of prodived data'} />
-          <Select label={'Choose one of prodived data'} />
-          <Select label={'Choose one of prodived data'} />
+          <Select
+            label={'Select role'}
+            value={field.role}
+            name={'role'}
+            handleChange={handleChangeSelect}
+          />
+          {/* <Select label={'Choose one of prodived data'} />
+          <Select label={'Choose one of prodived data'} /> */}
           <Button>Submit form</Button>
         </Form>
         {/* <Form formTitle={'Form with radio buttons'}>
