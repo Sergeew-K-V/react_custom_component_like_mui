@@ -29,29 +29,26 @@ function App() {
             label={'Email'}
             handleChange={handleChange}
             name={'email'}
-            value={field.email}
           />
           <Textfield
             label={'Password'}
             name={'password'}
             handleChange={handleChange}
-            value={field.password}
           />
           <Textfield
             label={'Username'}
             name={'username'}
             handleChange={handleChange}
-            value={field.username}
           />
           <Button>Submit form</Button>
         </Form>
-        {/* <Form formTitle={'Form with select'}>
+        <Form formTitle={'Form with select'}>
           <Select label={'Choose one of prodived data'} />
           <Select label={'Choose one of prodived data'} />
           <Select label={'Choose one of prodived data'} />
           <Button>Submit form</Button>
         </Form>
-        <Form formTitle={'Form with radio buttons'}>
+        {/* <Form formTitle={'Form with radio buttons'}>
           <Radio label={'Radio 1'} />
           <Radio label={'Radio 2'} />
           <Radio label={'Radio 3'} />

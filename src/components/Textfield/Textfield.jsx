@@ -3,22 +3,30 @@ import { useState } from 'react';
 import '../../App.scss';
 import './Textfield.scss';
 
-const Textfield = ({ label, value, handleChange, name }) => {
+const Textfield = ({ label, handleChange, name }) => {
   const [focus, setFocus] = useState(false);
   const inputRef = useRef(null);
+  const [isError, setIsError] = useState(false);
 
   return (
-    <div className={'textfield' + (value || focus ? ' focused' : '')}>
+    <div
+      className={
+        'textfield' +
+        (focus ? ' focused' : '') +
+        (inputRef.current?.value ? ' valued' : '')
+      }
+    >
       <label htmlFor={name}>{label}</label>
       <div
         className={
-          'textfield__input-content' + (value || focus ? ' focused' : '')
+          'textfield__input-content' +
+          (focus ? ' focused' : '') +
+          (inputRef.current?.value ? ' valued' : '')
         }
         onClick={() => inputRef.current.focus()}
       >
         <input
           type="text"
-          value={value}
           name={name}
           ref={inputRef}
           onChange={(event) =>
@@ -34,6 +42,7 @@ const Textfield = ({ label, value, handleChange, name }) => {
           </legend>
         </fieldset>
       </div>
+      {inputRef.current?.value.length >= 4 && <p>Invalid value of data</p>}
     </div>
   );
 };
