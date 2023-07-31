@@ -59,7 +59,7 @@ const App = () => {
               handleChange={handleChangeTextField}
             />
             <Textfield
-              label={'Username'}
+              label={'Username Username Username'}
               name={'username'}
               handleChange={handleChangeTextField}
             />
@@ -71,7 +71,7 @@ const App = () => {
         return (
           <Form formTitle={'Form with select'}>
             <Select
-              label={'Select role'}
+              label={'Select role Select role'}
               value={field.role}
               name={'role'}
               handleChange={handleChangeSelect}

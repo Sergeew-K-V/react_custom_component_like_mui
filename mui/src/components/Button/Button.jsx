@@ -1,4 +1,5 @@
-import '../App.scss';
+import '../../App.scss';
+import './Button.scss';
 
 const Button = ({ children, type, onClick }) => {
   return (
