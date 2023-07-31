@@ -12,6 +12,8 @@ $transitionLabelX: 1rem;
 $transitionLabelScale: 0.9;
 $fieldSetOffetTop: 12px;
 $optionSelectedColor: rgb(212, 212, 212);
+$focusedLegendMargin: 0 1rem 0 0.5rem;
+$focusedLegendPadding: 0 0.5rem;
 
 $calculatedWidth: calc($componentWidth - $transitionLabelX - 3rem);
 
@@ -131,10 +133,10 @@ $calculatedWidth: calc($componentWidth - $transitionLabelX - 3rem);
         height: calc(100% + $fieldSetOffetTop);
         border-color: $focusedColor;
         legend {
-          margin: 0 1rem 0 0.5rem;
+          margin: $focusedLegendMargin;
           max-width: 100%;
-          padding: 0 0.5rem;
-          transition: all 0.2s ease-in;
+          padding: $focusedLegendPadding;
+          transition: all $transitionTimeLabel ease-in;
         }
       }
       legend {
@@ -157,10 +159,10 @@ $calculatedWidth: calc($componentWidth - $transitionLabelX - 3rem);
       fieldset {
         border-color: $color;
         legend {
-          margin: 0 1rem 0 0.5rem;
+          margin: $focusedLegendMargin;
           max-width: 100%;
-          padding: 0 0.5rem;
-          transition: all 0.2s ease-in;
+          padding: $focusedLegendPadding;
+          transition: all $transitionTimeLabel ease-in;
         }
       }
     }
@@ -171,10 +173,10 @@ $calculatedWidth: calc($componentWidth - $transitionLabelX - 3rem);
         max-width: 100%;
         border-color: $focusedColor;
         legend {
-          margin: 0 1rem 0 0.5rem;
+          margin: $focusedLegendMargin;
           max-width: $calculatedWidth;
-          padding: 0 0.5rem;
-          transition: all 0.2s ease-in;
+          padding: $focusedLegendPadding;
+          transition: all $transitionTimeLabel ease-in;
         }
       }
     }
