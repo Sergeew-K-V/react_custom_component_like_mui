@@ -89,6 +89,13 @@ const App = () => {
               handleChange={handleChangeSelect}
               options={optionsRole}
             />
+            <Select
+              label={'Select role'}
+              value={field.role}
+              name={'role'}
+              handleChange={handleChangeSelect}
+              options={optionsRole}
+            />
             <Button onClick={prevStepHandler}>Previous</Button>
             <Button onClick={nextStepHandler}>Next</Button>
           </Form>
