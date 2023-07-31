@@ -27,7 +27,7 @@ $calculatedWidth: calc($componentWidth - $transitionLabelX - 0.5rem - 0.5rem);
     white-space: nowrap;
     top: 0;
     left: 0;
-    width: $calculatedWidth;
+    max-width: $calculatedWidth;
     height: fit-content;
     margin: 0;
     z-index: 10;
@@ -93,14 +93,13 @@ $calculatedWidth: calc($componentWidth - $transitionLabelX - 0.5rem - 0.5rem);
       }
       legend {
         position: relative;
-        max-width: 0.01px;
         margin: 0 95% 0 5%;
-        width: $calculatedWidth;
+        max-width: 0.01px;
         padding: 0;
         transition: all 0.1s ease-out;
         span {
           display: inline-block;
-          width: $calculatedWidth;
+          max-width: $calculatedWidth;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -126,7 +125,7 @@ $calculatedWidth: calc($componentWidth - $transitionLabelX - 0.5rem - 0.5rem);
         border-color: $focusedColor;
         legend {
           margin: 0 1rem 0 0.5rem;
-          max-width: 100%;
+          max-width: $calculatedWidth;
           padding: 0 0.5rem;
           transition: all 0.2s ease-in;
         }
