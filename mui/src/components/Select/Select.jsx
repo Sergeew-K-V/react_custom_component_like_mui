@@ -1,13 +1,28 @@
 import { useRef, useState } from 'react';
+import keyActions from './keyActions';
 import '../../App.scss';
 import './Select.scss';
 
-const Select = ({ label, handleChange, name, value }) => {
-  console.log('🚀 ~ file: Select.jsx:6 ~ Select ~ value:', value);
-  const selectRef = useRef(null);
-  const [isError, setError] = useState(false);
+const Select = ({ label, handleChange, name, value, options }) => {
   const [focus, setFocus] = useState(false);
+  const fieldsetRef = useRef(null);
   const [isSelecting, setIsSelecting] = useState(false);
+  const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
+
+  const focusOn = () => {
+    setFocus(true);
+    setIsSelecting(true);
+  };
+
+  const focusOff = () => {
+    setFocus(false);
+    setIsSelecting(false);
+  };
+
+  const handleSelectChange = (value) => {
+    handleChange(value, name);
+    focusOff();
+  };
 
   return (
     <div
@@ -15,51 +30,73 @@ const Select = ({ label, handleChange, name, value }) => {
         'select' + (focus ? ' focused' : '') + (value ? ' valued' : '')
       }
     >
-      <label htmlFor={name}>{label}</label>
+      <label
+        onClick={() => {
+          focusOn();
+          fieldsetRef.current.focus();
+        }}
+      >
+        {label}
+      </label>
       <div
         className={
           'select__select-content' +
           (focus ? ' focused' : '') +
           (value ? ' valued' : '')
         }
-        onClick={() => {
-          selectRef.current.focus();
-          setIsSelecting(true);
-        }}
       >
-        <input
-          type="text"
-          name={name}
-          ref={selectRef}
-          value={value}
-          onChange={(event) =>
-            handleChange(event.target.value, event.target.name)
-          }
-          id={name}
-          readOnly
-          onFocus={() => setFocus(true)}
-          onBlur={() => {
-            setFocus(false);
-            setIsSelecting(false);
-          }}
-        />
-        <svg focusable="false" viewBox="0 0 24 24">
+        <input type="text" name={name} value={value} readOnly tabIndex={-1} />
+        <svg
+          focusable="false"
+          viewBox="0 0 24 24"
+          className={isSelecting ? 'focused' : ''}
+        >
           <path d="M7 10l5 5 5-5z"></path>
         </svg>
-        <fieldset>
+        <fieldset
+          tabIndex={1}
+          name={name}
+          onClick={() => {
+            if (isSelecting) {
+              focusOff();
+            } else {
+              focusOn();
+            }
+          }}
+          ref={fieldsetRef}
+          onBlur={() => focusOff()}
+          onFocus={() => setFocus(true)}
+          onKeyDown={(event) =>
+            keyActions(
+              event.code,
+              setIsSelecting,
+              handleSelectChange,
+              selectedOptionIndex,
+              setSelectedOptionIndex,
+              focusOn,
+              options
+            )
+          }
+        >
           <legend>
             <span>{label}</span>
           </legend>
+          {isSelecting && (
+            <div className="select__options">
+              <ul>
+                {options.map((option, index) => (
+                  <li
+                    onClick={() => handleSelectChange(option.value)}
+                    key={option.value || index}
+                    className={selectedOptionIndex === index ? 'selected' : ''}
+                  >
+                    {option.label}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </fieldset>
-        {isSelecting && (
-          <div className="select__options">
-            <ul>
-              <li onClick={() => handleChange('Admin', name)}>Admin</li>
-              <li onClick={() => handleChange('User', name)}>User</li>
-              <li onClick={() => handleChange('Error', name)}>Error</li>
-            </ul>
-          </div>
-        )}
       </div>
       {value === 'Error' && <p>Error</p>}
     </div>

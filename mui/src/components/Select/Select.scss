@@ -1,11 +1,22 @@
-$transitionTimeLabel: 0.2s;
+$componentWidth: 15rem;
 $componentHeight: 3rem;
+
+$transitionTimeLabel: 0.2s;
 $borderRadius: 0.5rem;
 $color: initial;
 $focusedColor: blue;
 $errorFontSize: 0.8rem;
+$borderWidth: 2px;
+$transitionLabelY: 50%;
+$transitionLabelX: 1rem;
+$transitionLabelScale: 0.9;
+$fieldSetOffetTop: 12px;
+$optionSelectedColor: rgb(212, 212, 212);
+
+$calculatedWidth: calc($componentWidth - $transitionLabelX - 3rem);
 
 .select {
+  width: $componentWidth;
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
@@ -16,11 +27,14 @@ $errorFontSize: 0.8rem;
     position: absolute;
     top: 0;
     left: 0;
-    width: fit-content;
+    width: $calculatedWidth;
     height: fit-content;
     margin: 0;
     z-index: 10;
-    transform: translate(1rem, 50%) scale(1);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform: translate($transitionLabelX, $transitionLabelY) scale(1);
     transition: $transitionTimeLabel ease-in;
   }
   p {
@@ -31,27 +45,44 @@ $errorFontSize: 0.8rem;
   &.valued {
     color: $color;
     label {
-      transform: translate(1rem, -50%) scale(0.9);
+      transform: translate($transitionLabelX, -$transitionLabelY)
+        scale($transitionLabelScale);
       transition: $transitionTimeLabel ease-out;
     }
   }
   &.focused {
     color: $focusedColor;
     label {
-      transform: translate(1rem, -50%) scale(0.9);
+      transform: translate($transitionLabelX, -$transitionLabelY)
+        scale($transitionLabelScale);
       transition: $transitionTimeLabel ease-out;
-    }
-    svg {
-      transform: rotate(180deg);
     }
   }
   &__options {
     position: absolute;
-    top: 100%;
+    top: calc(100% + $borderWidth);
     width: 100%;
     background-color: white;
+    color: $color;
+    border-radius: $borderRadius;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-in-out forwards;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px,
+      rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+
     ul {
+      padding: 0.5rem 0;
+      margin: 0;
       li {
+        list-style: none;
+        padding: 0.5rem 1rem;
+
+        &.selected {
+          background-color: $optionSelectedColor;
+        }
+        &:hover {
+          background-color: $optionSelectedColor;
+        }
       }
     }
   }
@@ -63,7 +94,7 @@ $errorFontSize: 0.8rem;
       width: 100%;
       height: 100%;
       margin: 0;
-      padding: 0.2rem 0.6rem 0.2rem 1rem;
+      padding: 0.2rem 0.5rem 0.2rem 1rem;
       border: 0;
       border-radius: $borderRadius;
       outline: none;
@@ -77,25 +108,47 @@ $errorFontSize: 0.8rem;
       top: 0;
       right: 0;
       user-select: none;
+      transition: transform $transitionTimeLabel ease-in;
+      &.focused {
+        fill: blue;
+        transform: rotate(180deg);
+        transition: transform $transitionTimeLabel ease-in;
+      }
     }
+
     fieldset {
       position: absolute;
-      top: -10px;
+      top: -$fieldSetOffetTop;
       margin: 0;
       padding: 0;
       border-radius: $borderRadius;
       width: 100%;
-      height: calc(100% + 10px);
+      outline: none;
+      height: calc(100% + $fieldSetOffetTop);
+      border-width: $borderWidth;
+      :focus-visible {
+        top: -$fieldSetOffetTop;
+        height: calc(100% + $fieldSetOffetTop);
+        border-color: $focusedColor;
+        legend {
+          margin: 0 1rem 0 0.5rem;
+          max-width: 100%;
+          padding: 0 0.5rem;
+          transition: all 0.2s ease-in;
+        }
+      }
       legend {
         position: relative;
         max-width: 0.01px;
         margin: 0 95% 0 5%;
         padding: 0;
-        width: fit-content;
         transition: all 0.1s ease-out;
         span {
           display: inline-block;
+          width: $calculatedWidth;
           white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           opacity: 0;
         }
       }
@@ -104,7 +157,7 @@ $errorFontSize: 0.8rem;
       fieldset {
         border-color: $color;
         legend {
-          margin: 0 1rem 0 0.6rem;
+          margin: 0 1rem 0 0.5rem;
           max-width: 100%;
           padding: 0 0.5rem;
           transition: all 0.2s ease-in;
@@ -113,20 +166,26 @@ $errorFontSize: 0.8rem;
     }
     &.focused {
       fieldset {
-        top: -10px;
-        height: calc(100% + 10px);
+        top: -$fieldSetOffetTop;
+        height: calc(100% + $fieldSetOffetTop);
         max-width: 100%;
         border-color: $focusedColor;
         legend {
-          margin: 0 1rem 0 0.6rem;
+          margin: 0 1rem 0 0.5rem;
           max-width: 100%;
           padding: 0 0.5rem;
           transition: all 0.2s ease-in;
         }
       }
-      svg {
-        fill: blue;
-      }
     }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
