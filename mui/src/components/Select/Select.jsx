@@ -3,6 +3,7 @@ import '../../App.scss';
 import './Select.scss';
 
 const Select = ({ label, handleChange, name, value }) => {
+  console.log('🚀 ~ file: Select.jsx:6 ~ Select ~ value:', value);
   const selectRef = useRef(null);
   const [isError, setError] = useState(false);
   const [focus, setFocus] = useState(false);
@@ -50,7 +51,7 @@ const Select = ({ label, handleChange, name, value }) => {
             <span>{label}</span>
           </legend>
         </fieldset>
-        {/* {isSelecting && (
+        {isSelecting && (
           <div className="select__options">
             <ul>
               <li onClick={() => handleChange('Admin', name)}>Admin</li>
@@ -58,7 +59,7 @@ const Select = ({ label, handleChange, name, value }) => {
               <li onClick={() => handleChange('Error', name)}>Error</li>
             </ul>
           </div>
-        )} */}
+        )}
       </div>
       {value === 'Error' && <p>Error</p>}
     </div>
