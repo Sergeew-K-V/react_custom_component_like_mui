@@ -17,6 +17,13 @@ const FORM_STEPS = Object.freeze({
   checkbox: 3,
 });
 
+const optionsRole = [
+  { label: 'None', value: '' },
+  { label: 'Admin', value: 'Admin' },
+  { label: 'User', value: 'User' },
+  { label: 'Error', value: 'Error' },
+];
+
 const App = () => {
   const [field, setField] = useState({
     email: '',
@@ -25,7 +32,7 @@ const App = () => {
     role: '',
   });
 
-  const [step, setStep] = useState(FORM_STEPS.textfield);
+  const [step, setStep] = useState(FORM_STEPS.select);
 
   const prevStepHandler = () => {
     step >= 1 && setStep((step) => step - 1);
@@ -40,6 +47,7 @@ const App = () => {
   };
 
   const handleChangeSelect = (value, name) => {
+    console.log('🚀 ~ file: App.jsx:34 ~ App ~ value, name:', value, name);
     setField({ ...field, [name]: value });
   };
 
@@ -59,11 +67,13 @@ const App = () => {
               handleChange={handleChangeTextField}
             />
             <Textfield
-              label={'Username Username Username'}
+              label={'Username Username Username Username Username Username'}
               name={'username'}
               handleChange={handleChangeTextField}
             />
-            <Button onClick={prevStepHandler}>Previous</Button>
+            <Button disabled={step >= 1} onClick={prevStepHandler}>
+              Previous
+            </Button>
             <Button onClick={nextStepHandler}>Next</Button>
           </Form>
         );
@@ -71,10 +81,13 @@ const App = () => {
         return (
           <Form formTitle={'Form with select'}>
             <Select
-              label={'Select role Select role'}
+              label={
+                'Select role Select role Select role sjkhsdfgjkghdfghjkhjkgdfs'
+              }
               value={field.role}
               name={'role'}
               handleChange={handleChangeSelect}
+              options={optionsRole}
             />
             <Button onClick={prevStepHandler}>Previous</Button>
             <Button onClick={nextStepHandler}>Next</Button>
@@ -93,7 +106,11 @@ const App = () => {
           <Form formTitle={'Form with checkbox'}>
             <Checkbox label={'Checkbox 1'} />
             <Button onClick={prevStepHandler}>Previous</Button>
-            <Button onClick={nextStepHandler} type="submit">
+            <Button
+              disabled={step <= 2}
+              onClick={nextStepHandler}
+              type="submit"
+            >
               Submit
             </Button>
           </Form>
